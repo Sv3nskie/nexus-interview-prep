@@ -45,3 +45,9 @@ Browser-native: Web Speech API (STT + TTS, Chrome/Edge) and MediaRecorder. Video
 
 ## Path to SaaS
 Add auth + per-user rows, and move to Ollama/vLLM on a GPU box or an OpenAI-compatible host.
+
+## Roadmap
+- [ ] Run Rust and Dart solutions in a sandbox instead of AI-traced review
+- [ ] Screenshots and a short demo video in this README
+- [ ] Per-user accounts for hosting it for others
+- [ ] Export your study plan to a calendar
