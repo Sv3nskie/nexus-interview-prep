@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>NEXUS social card</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cyan:#22d3ee;--violet:#8b5cf6;--magenta:#f0abfc;--muted:#8b93b8;--line:rgba(120,140,255,.18)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{font-family:'Space Grotesk',sans-serif;color:#e8ecff;position:relative;
+ background:radial-gradient(700px 420px at 88% -8%,rgba(139,92,246,.4),transparent 62%),radial-gradient(560px 420px at -4% 108%,rgba(34,211,238,.26),transparent 62%),linear-gradient(rgba(120,140,255,.06) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(120,140,255,.06) 1px,transparent 1px) 0 0/44px 44px,#05060d}
+.logo{position:absolute;left:64px;top:52px;display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.24em;font-size:20px}
+.logo i{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-style:normal;font-size:18px;letter-spacing:0;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#05060d;box-shadow:0 0 30px rgba(34,211,238,.5)}
+.left{position:absolute;left:64px;top:150px;width:600px}
+h1{font-size:68px;line-height:1.04;letter-spacing:-.035em;font-weight:700}
+.grad{background:linear-gradient(100deg,var(--cyan),var(--violet) 60%,var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
+p{margin-top:22px;font-size:24px;line-height:1.45;color:var(--muted);width:560px}
+.chips{position:absolute;left:64px;bottom:96px;display:flex;gap:10px}
+.chip{padding:9px 18px;border-radius:99px;border:1px solid var(--line);background:rgba(120,140,255,.07);font-size:17px;color:#c9d0f5}
+.url{position:absolute;left:64px;bottom:44px;font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--cyan)}
+.panel{position:absolute;right:56px;top:76px;width:440px;height:478px;border-radius:26px;border:1px solid rgba(120,160,255,.36);background:rgba(14,17,34,.78);box-shadow:0 30px 80px -20px rgba(139,92,246,.6),0 0 0 1px rgba(34,211,238,.06);padding:26px;display:flex;flex-direction:column}
+.bar{display:flex;gap:6px}.bar i{flex:1;height:5px;border-radius:9px;background:rgba(120,140,255,.18)}.bar i.d{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}.bar i.c{background:var(--violet)}
+.lbl{margin-top:16px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.stage{flex:1;margin:14px 0;border-radius:18px;background:rgba(0,0,0,.4);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.arr{display:flex;gap:9px}.col{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cell{width:58px;height:62px;display:grid;place-items:center;border-radius:14px;font-family:'JetBrains Mono',monospace;font-size:26px;background:rgba(120,140,255,.1);border:1px solid rgba(120,160,255,.36)}
+.cell.hi{background:rgba(34,211,238,.24);border-color:var(--cyan);box-shadow:0 0 30px rgba(34,211,238,.65);transform:translateY(-8px) scale(1.08)}
+.idx{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}.ptr{height:20px;color:var(--magenta);font-weight:700;font-size:14px}
+.say{font-size:21px;line-height:1.4;text-align:center;padding:0 6px}
+.wave{display:flex;gap:4px;align-items:center;justify-content:center;height:26px;margin-top:10px}.wave i{width:4px;border-radius:3px;background:linear-gradient(var(--cyan),var(--violet))}
+.orb{position:absolute;z-index:5;right:412px;top:488px;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#a5f3fc,var(--cyan) 30%,var(--violet) 70%,#1e1b4b);box-shadow:0 0 50px rgba(34,211,238,.6),0 0 110px rgba(139,92,246,.5),inset 0 0 22px rgba(255,255,255,.3)}
+</style></head>
+<body>
+<div class="logo"><i>N</i>NEXUS</div>
+<div class="left">
+  <h1>Interview prep that <span class="grad">adapts to you</span></h1>
+  <p>Mock interviews you can talk through. A code lab that explains itself out loud. Free, local AI.</p>
+</div>
+<div class="chips"><span class="chip">JavaScript</span><span class="chip">Rust</span><span class="chip">Databases</span><span class="chip">Open source</span></div>
+<div class="url">github.com/Sv3nskie/nexus-interview-prep</div>
+<div class="orb"></div>
+<div class="panel">
+  <div class="bar"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="c"></i><i></i><i></i><i></i></div>
+  <div class="lbl">Walkthrough &middot; Count Vowels</div>
+  <div class="stage">
+    <div class="arr">
+      <div class="col"><div class="cell">H</div><div class="idx">0</div><div class="ptr"></div></div>
+      <div class="col"><div class="cell hi">e</div><div class="idx">1</div><div class="ptr">&uarr; i</div></div>
+      <div class="col"><div class="cell">l</div><div class="idx">2</div><div class="ptr"></div></div>
+      <div class="col"><div class="cell">l</div><div class="idx">3</div><div class="ptr"></div></div>
+      <div class="col"><div class="cell">o</div><div class="idx">4</div><div class="ptr"></div></div>
+    </div>
+    <div class="say">&ldquo;Next is <b style="color:var(--cyan)">e</b>. That&rsquo;s a vowel, count goes up to one.&rdquo;</div>
+  </div>
+  <div class="wave" id="wave"></div>
+</div>
+<script>
+const h=[10,18,8,22,14,6,20,12,24,9,16,7,21,13,18,8,23,11,15,6,19,10];
+document.getElementById('wave').innerHTML=h.map(x=>`<i style="height:${x}px"></i>`).join('');
+</script>
+</body></html>
+
