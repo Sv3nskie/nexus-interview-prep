@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXUS — AI Interview Prep</title>
+<meta name="description" content="Dark, futuristic interview trainer for software developers: adaptive mock interviews with voice and camera, a code lab, spaced-repetition flashcards, LeetCode targets and narrated visual explainers. Runs on free local AI.">
+<meta property="og:title" content="NEXUS — AI Interview Prep">
+<meta property="og:description" content="Adaptive mock interviews, code lab, flashcards and narrated visual explainers. Free, local, open source.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060d;--panel:rgba(18,21,40,.62);--line:rgba(120,140,255,.14);--line2:rgba(120,160,255,.32);--text:#e8ecff;--muted:#8b93b8;--cyan:#22d3ee;--violet:#8b5cf6;--magenta:#f0abfc;--good:#34d399;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 500px at 85% -10%,rgba(139,92,246,.24),transparent 60%),radial-gradient(700px 500px at -5% 105%,rgba(34,211,238,.16),transparent 60%),linear-gradient(rgba(120,140,255,.045) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(120,140,255,.045) 1px,transparent 1px) 0 0/44px 44px,var(--bg)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2em;font-size:.95rem}
+.logo i{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font-style:normal;font-size:.8rem;letter-spacing:0;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#05060d;box-shadow:0 0 24px rgba(34,211,238,.4)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:12px;border:1px solid var(--line2);background:rgba(120,140,255,.07);color:var(--text);font:inherit;font-weight:600;font-size:.92rem;cursor:pointer;transition:.18s}
+.btn:hover{border-color:var(--cyan);box-shadow:0 0 24px rgba(34,211,238,.25);transform:translateY(-1px)}
+.btn.primary{border:0;background:linear-gradient(100deg,var(--cyan),var(--violet));color:#04050c;box-shadow:0 8px 30px -8px rgba(34,211,238,.55)}
+.btn.sm{padding:7px 14px;font-size:.82rem;border-radius:10px}
+.grad{background:linear-gradient(100deg,var(--cyan),var(--violet) 60%,var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero{text-align:center;padding:50px 0 70px}
+.orb{width:110px;height:110px;margin:0 auto 34px;border-radius:50%;position:relative;background:radial-gradient(circle at 35% 30%,#a5f3fc,var(--cyan) 30%,var(--violet) 70%,#1e1b4b);box-shadow:0 0 50px rgba(34,211,238,.45),0 0 120px rgba(139,92,246,.35),inset 0 0 30px rgba(255,255,255,.25);animation:float 5s ease-in-out infinite}
+.orb::before,.orb::after{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(34,211,238,.35);animation:ring 3s linear infinite}.orb::after{animation-delay:1.5s}
+@keyframes float{50%{transform:translateY(-8px)}}@keyframes ring{from{transform:scale(.9);opacity:.8}to{transform:scale(1.6);opacity:0}}
+h1{font-size:clamp(2.2rem,6vw,3.8rem);line-height:1.1;margin:0 0 18px;letter-spacing:-.03em}
+.sub{color:var(--muted);font-size:1.15rem;max-width:640px;margin:0 auto 30px}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:34px}
+.chip{padding:6px 14px;border-radius:99px;border:1px solid var(--line);color:var(--muted);font-size:.82rem;background:rgba(120,140,255,.05)}
+section{padding:54px 0}
+h2{font-size:1.9rem;margin:0 0 8px;letter-spacing:-.02em}
+.lead{color:var(--muted);margin:0 0 30px;max-width:640px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;backdrop-filter:blur(12px);transition:.2s}
+.card:hover{border-color:var(--line2);transform:translateY(-3px)}
+.card h3{margin:12px 0 6px;font-size:1.05rem}.card p{margin:0;color:var(--muted);font-size:.92rem}
+.ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:1.2rem;background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(139,92,246,.25));border:1px solid var(--line2)}
+/* demo */
+.demo{border-color:var(--line2);box-shadow:0 20px 60px -30px rgba(139,92,246,.6);padding:24px}
+.stage{min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid var(--line);padding:16px;animation:pop .45s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(8px)}}
+.arr{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.col{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:54px}
+.cell{min-width:54px;padding:13px 10px;border-radius:12px;text-align:center;font-family:var(--mono);font-size:1.1rem;background:rgba(120,140,255,.1);border:1px solid var(--line2);transition:.4s}
+.cell.hi{background:rgba(34,211,238,.22);border-color:var(--cyan);box-shadow:0 0 22px rgba(34,211,238,.5);transform:translateY(-6px) scale(1.06);animation:glow 1.4s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 34px rgba(34,211,238,.8)}}
+.idx{font-family:var(--mono);font-size:.7rem;color:var(--muted)}.ptr{min-height:22px;color:var(--magenta);font-size:.8rem;font-weight:700}
+.big{font-size:1.8rem;font-weight:700;text-align:center}
+.code{font-family:var(--mono);line-height:1.9;font-size:.95rem}.code div{padding:0 12px;border-left:3px solid transparent;transition:.3s}.code .hi{border-left-color:var(--cyan);background:rgba(34,211,238,.14)}
+.say{text-align:center;font-size:1.2rem;min-height:3.4em;margin:18px 0 12px}
+.bar{display:flex;gap:6px;margin-bottom:16px}.bar i{flex:1;height:5px;border-radius:9px;background:rgba(120,140,255,.14);cursor:pointer}.bar i.done{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}.bar i.cur{background:var(--violet)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+pre{background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:14px;padding:18px;overflow-x:auto;font-family:var(--mono);font-size:.85rem;line-height:1.7;margin:0}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}.tbl th,.tbl td{border:1px solid var(--line);padding:10px 14px;text-align:left}.tbl th{background:rgba(120,140,255,.08)}
+.tag{font-size:.72rem;padding:3px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--cyan);font-weight:600}
+footer{padding:40px 0 60px;color:var(--muted);text-align:center;font-size:.88rem;border-top:1px solid var(--line);margin-top:30px}
+@media(max-width:820px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid{grid-template-columns:1fr}.say{font-size:1.05rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><div class="logo"><i>N</i>NEXUS</div><a class="btn sm" href="https://github.com/Sv3nskie/nexus-interview-prep">GitHub ↗</a></nav>
+
+<header class="hero">
+  <div class="orb"></div>
+  <h1>Interview prep that <span class="grad">adapts to you</span></h1>
+  <p class="sub">Mock interviews you can talk through, a code lab that explains itself, flashcards that come back when you're about to forget. Powered by free local AI: no API bill.</p>
+  <div class="cta"><a class="btn primary" href="#demo">▶ Try the explainer</a><a class="btn" href="#run">Run it yourself</a></div>
+  <div class="chips"><span class="chip">JavaScript</span><span class="chip">Rust</span><span class="chip">Databases</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Dart</span><span class="chip">Flutter</span><span class="chip">System design</span></div>
+</header>
+
+<section>
+  <h2>Everything for the week before the interview</h2>
+  <p class="lead">No two sessions are the same: every question is generated fresh at your level, and weak answers get probing follow-ups.</p>
+  <div class="grid">
+    <div class="card"><div class="ic">🎙</div><h3>Mock interviews</h3><p>Voice answers, optional camera, adaptive follow-ups. Get scored on depth, communication, pace and filler words.</p></div>
+    <div class="card"><div class="ic">⌨</div><h3>Code Lab</h3><p>Fresh problems in JS, TS, Rust, Dart, Python or SQL. JS/TS run in a sandbox; every problem starts with a plain-words summary.</p></div>
+    <div class="card"><div class="ic">▶</div><h3>Narrated explainers</h3><p>Rusty? An animated, spoken walkthrough traces a tiny example step by step instead of making you read a wall of text.</p></div>
+    <div class="card"><div class="ic">📘</div><h3>Prepare</h3><p>A day-by-day plan to your interview date, deep lessons, and a curated syllabus for JavaScript, Rust and Databases.</p></div>
+    <div class="card"><div class="ic">🗂</div><h3>Flashcards</h3><p>Spaced repetition decks generated from your lessons. Five minutes a day beats a weekend cram.</p></div>
+    <div class="card"><div class="ic">🧩</div><h3>LeetCode targets</h3><p>Reads your public profile, finds your weakest patterns and recommends problems for them. No login needed.</p></div>
+  </div>
+</section>
+
+<section id="demo">
+  <h2>Try the explainer</h2>
+  <p class="lead">This is the walkthrough the Code Lab plays for a problem ("count the vowels in a string"). Press play to hear it; it uses your browser's built-in voice.</p>
+  <div class="card demo">
+    <div class="row" style="margin-bottom:14px"><span class="label">Walkthrough · Count Vowels</span><span class="tag">demo data</span></div>
+    <div class="stage" id="stage"></div>
+    <p class="say" id="say"></p>
+    <div class="bar" id="bar"></div>
+    <div class="row">
+      <div class="row"><button class="btn sm" id="back">‹ Back</button><button class="btn sm primary" id="play">▶ Play</button><button class="btn sm" id="next">Next ›</button></div>
+      <button class="btn sm" id="audio">🔊 Audio on</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Free AI, your choice</h2>
+  <p class="lead">Pick the engine per your machine. Everything is provider-agnostic.</p>
+  <div class="card"><table class="tbl">
+    <tr><th>Engine</th><th>Cost</th><th>Notes</th></tr>
+    <tr><td><b>Ollama</b></td><td>free</td><td>Local open models (default fallback). Private; runs on your own server.</td></tr>
+    <tr><td><b>Claude Code CLI</b></td><td>your subscription</td><td>Best quality. Personal use only: don't put it behind a multi-user service.</td></tr>
+    <tr><td><b>OpenAI-compatible</b></td><td>free tiers</td><td>Groq, Gemini, OpenRouter, vLLM or any self-hosted endpoint.</td></tr>
+  </table></div>
+</section>
+
+<section id="run">
+  <h2>Run it yourself</h2>
+  <p class="lead">NEXUS stores data in MongoDB and needs one AI engine. With Docker it's two commands.</p>
+  <pre>git clone https://github.com/Sv3nskie/nexus-interview-prep
+cd nexus-interview-prep
+docker compose up -d --build     # → http://interview.localhost
+
+# or without Docker (Node 22+):
+npm install &amp;&amp; npm run dev       # → http://localhost:5173</pre>
+</section>
+
+<footer>NEXUS — open source interview prep · <a href="https://github.com/Sv3nskie/nexus-interview-prep" style="color:var(--cyan)">github.com/Sv3nskie/nexus-interview-prep</a><br>This page is a static preview; the real app needs the backend and an AI engine.</footer>
+</div>
+
+<script>
+const STEPS = [
+  { say: "Let's count vowels in a word. Nothing fancy. Just look at each letter and ask: is it a, e, i, o, or u?", show: { t: 'text', items: ['Count the vowels'] } },
+  { say: "Upper or lower case both count. Spaces, digits and the letter y do not.", show: { t: 'text', items: ['a e i o u, any case'] } },
+  { say: "Let's trace one tiny example by hand: the word Hello. We start with a count of zero.", show: { t: 'array', items: ['H','e','l','l','o'], hi: [], ptr: {} } },
+  { say: "First letter is H. Is it a vowel? No. Count stays zero.", show: { t: 'array', items: ['H','e','l','l','o'], hi: [0], ptr: { i: 0 } } },
+  { say: "Next is e. Yes, that's a vowel! Count goes up to one.", show: { t: 'array', items: ['H','e','l','l','o'], hi: [1], ptr: { i: 1 } } },
+  { say: "Then l, and another l. Neither is a vowel. Count stays at one.", show: { t: 'array', items: ['H','e','l','l','o'], hi: [2,3], ptr: { i: 3 } } },
+  { say: "Last letter is o. A vowel! Count becomes two. The answer is two.", show: { t: 'array', items: ['H','e','l','l','o'], hi: [4], ptr: { i: 4 } } },
+  { say: "So the approach is simple. Walk through every character once, lowercase it, and add one if it's a vowel.", show: { t: 'code', items: ['count = 0', 'for each char c in s:', '  if lower(c) in "aeiou":', '    count += 1', 'return count'], hi: [2,3] } },
+  { say: "One pass, check each letter, count the hits. You've got this. Go try it!", show: { t: 'text', items: ['One pass. Count the hits.'] } },
+];
+const $ = (id) => document.getElementById(id);
+let i = 0, playing = false, audio = !!window.speechSynthesis, timer, token = 0;
+
+function render() {
+  const s = STEPS[i].show;
+  let html = '';
+  if (s.t === 'text') html = `<div class="big grad">${s.items.join(' ')}</div>`;
+  if (s.t === 'array') html = `<div class="arr">${s.items.map((c, k) => `<div class="col"><div class="cell ${s.hi.includes(k) ? 'hi' : ''}">${c}</div><div class="idx">${k}</div><div class="ptr">${Object.entries(s.ptr).filter(([, v]) => v === k).map(([n]) => '↑ ' + n).join('')}</div></div>`).join('')}</div>`;
+  if (s.t === 'code') html = `<div class="code">${s.items.map((l, k) => `<div class="${s.hi.includes(k) ? 'hi' : ''}">${l.replace(/ /g, '&nbsp;')}</div>`).join('')}</div>`;
+  const stage = $('stage'); stage.replaceWith(stage.cloneNode(false)); // restart the pop animation
+  $('stage').innerHTML = html; $('stage').id = 'stage';
+  $('say').textContent = STEPS[i].say;
+  $('bar').innerHTML = STEPS.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'cur' : ''}" data-k="${k}"></i>`).join('');
+  $('bar').querySelectorAll('i').forEach((el) => (el.onclick = () => go(+el.dataset.k)));
+  $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+  $('play').textContent = playing ? '❚❚ Pause' : i === STEPS.length - 1 ? '↺ Replay' : '▶ Play';
+  $('audio').textContent = audio ? '🔊 Audio on' : '🔇 Audio off';
+}
+function stop() { token++; clearTimeout(timer); window.speechSynthesis && speechSynthesis.cancel(); }
+function go(k) { stop(); i = k; render(); if (playing) speakStep(); }
+function advance(t) { if (t !== token) return; if (i < STEPS.length - 1) { i++; render(); speakStep(); } else { playing = false; render(); } }
+function speakStep() {
+  const t = ++token;
+  if (audio) {
+    const u = new SpeechSynthesisUtterance(STEPS[i].say);
+    const v = speechSynthesis.getVoices().filter((x) => x.lang.startsWith('en'));
+    u.voice = v.find((x) => /natural|neural|online|google/i.test(x.name)) || v[0] || null;
+    u.onend = () => setTimeout(() => advance(t), 600);
+    u.onerror = () => {};
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  } else timer = setTimeout(() => advance(t), Math.max(2200, STEPS[i].say.split(' ').length * 380));
+}
+$('play').onclick = () => { if (!playing && i === STEPS.length - 1) i = 0; playing = !playing; stop(); render(); if (playing) speakStep(); };
+$('back').onclick = () => go(Math.max(0, i - 1));
+$('next').onclick = () => go(Math.min(STEPS.length - 1, i + 1));
+$('audio').onclick = () => { audio = !audio; stop(); render(); if (playing) speakStep(); };
+render();
+</script>
+</body>
+</html>

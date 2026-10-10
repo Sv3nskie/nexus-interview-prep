@@ -1,0 +1,16 @@
+services:
+  nexus:
+    build: .
+    container_name: nexus
+    restart: unless-stopped          # comes back after crashes and after Docker/Windows restarts
+    ports:
+      - "80:8787"                    # http://interview.localhost
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      MONGO_URL: mongodb://host.docker.internal:27017   # your local MongoDB
+      OLLAMA_URL: http://host.docker.internal:11434     # optional fallback engine
+      CLAUDE_CONFIG_DIR: /home/node/.claude
+    volumes:
+      # Your existing Claude login, shared live (not copied) so token refreshes never log the host CLI out.
+      - ${USERPROFILE}/.claude:/home/node/.claude
